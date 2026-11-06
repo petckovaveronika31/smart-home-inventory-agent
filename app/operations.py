@@ -46,6 +46,7 @@ def op_add(args: list) -> str:
     storage.add_item(name, quantity, expiry_str)
     return f"Добавлено: {name}, {quantity} шт., срок {expiry_str}."
 
+
 def op_list(args: list) -> str:
     """Показывает все запасы с учетом партий."""
     if args:
@@ -65,7 +66,8 @@ def op_list(args: list) -> str:
             )
 
     return "\n".join(result)
-   
+
+
 def op_consume(args: list) -> str:
     """Списывает продукт из запасов."""
     if len(args) != 2:
