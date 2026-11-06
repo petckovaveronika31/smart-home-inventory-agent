@@ -12,11 +12,14 @@ def parse_date(date_str: str) -> datetime | None:
 
 
 def is_expired(expiry_str: str) -> bool:
-    """Проверяет, истек ли срок годности."""
+    """Проверяет, истек ли срок годности (с точностью до дня)."""
     expiry_date = parse_date(expiry_str)
     if not expiry_date:
         return True
-    return expiry_date < datetime.now()
+
+    # Отбрасываем время, сравниваем только даты
+    today = datetime.now().date()
+    return expiry_date.date() < today
 
 
 def op_add(args: list) -> str:
