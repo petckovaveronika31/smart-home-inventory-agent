@@ -53,6 +53,15 @@ def op_list(args: list) -> str:
         return "Запасы пусты."
 
     result = []
+    for name, batches in inventory.items():
+        for batch in batches:
+            status = "Просрочено" if is_expired(batch["expiry"]) else "Свежий"
+            result.append(
+                f"{name}: {batch['quantity']} шт., "
+                f"срок {batch['expiry']}, статус {status}"
+            )
+
+    return "\n".join(result)
    
 def op_consume(args: list) -> str:
     """Списывает продукт из запасов."""
