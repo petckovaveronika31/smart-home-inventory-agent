@@ -43,24 +43,17 @@ def op_add(args: list) -> str:
     storage.add_item(name, quantity, expiry_str)
     return f"Добавлено: {name}, {quantity} шт., срок {expiry_str}."
 
-
 def op_list(args: list) -> str:
     """Показывает все запасы с учетом партий."""
+    if args:
+        return "Ошибка: команда list не принимает аргументов."
+
     inventory = storage.get_all()
     if not inventory:
         return "Запасы пусты."
 
     result = []
-    for name, batches in inventory.items():
-        for batch in batches:
-            status = "Просрочено" if is_expired(batch["expiry"]) else "Свежий"
-            result.append(
-                f"{name}: {batch['quantity']} шт., срок {batch['expiry']}, статус {status}"
-            )
-
-    return "\n".join(result)
-
-
+   
 def op_consume(args: list) -> str:
     """Списывает продукт из запасов."""
     if len(args) != 2:
