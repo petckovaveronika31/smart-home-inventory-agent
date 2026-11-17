@@ -3,7 +3,7 @@
 import shlex
 import sys
 
-from app import operations
+from app import operations, storage
 
 HELP_TEXT = """
 Доступные команды:
@@ -22,9 +22,14 @@ COMMANDS = {
 
 
 def main():
+    try:
+        storage.load_inventory()
+    except storage.StorageError as error:
+        print(f"Ошибка хранилища: {error}")
+        return
+
     print("Добро пожаловать в ИИ-агент 'Умный помощник по домашним запасам'!")
     print("Введите 'help', чтобы увидеть список команд.")
-
     while True:
         try:
             raw_input = input("\n> ").strip()
@@ -50,8 +55,11 @@ def main():
         elif command == "help":
             print(HELP_TEXT)
         elif command in COMMANDS:
-            result = COMMANDS[command](args)
-            print(result)
+            try:
+                result = COMMANDS[command](args)
+                print(result)
+            except storage.StorageError as error:
+                print(f"Ошибка хранилища: {error}")
         else:
             print(
                 f"Неизвестная команда: '{command}'. Введите 'help' для списка команд."

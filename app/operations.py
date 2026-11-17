@@ -109,6 +109,9 @@ def op_consume(args: list) -> str:
     if not storage.get_all()[name]:
         del storage.get_all()[name]
 
+    # Сохраняем изменения в JSON
+    storage.save_inventory()
+
     return f"Списано {quantity} шт. '{name}'."
 
 

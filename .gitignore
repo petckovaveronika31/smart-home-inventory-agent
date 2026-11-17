@@ -1,5 +1,27 @@
+
+# Виртуальное окружение
 .venv/
+venv/
+env/
+
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+
+# Кеши
 .ruff_cache/
+.pytest_cache/
+
+# Локальные данные приложения
+data/
+
+# Отчёты покрытия
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# IDE
 .idea/
+.vscode/
